@@ -56,3 +56,26 @@ Tabela com comandos úteis, dividida em sincronização remota e operações loc
   - Mantenha scripts claros e atômicos (start, test, build).
   - O arquivo package-lock.json (ou yarn.lock) trava versões instaladas para reprodutibilidade.
   - Para projetos que usam nvm, combine package.json (engines) com .nvmrc para consistência de ambiente.
+
+## Protocolos web
+
+- **HTTP — Hypertext Transfer Protocol**: protocolo usado para troca de informação entre clientes (ex.: navegadores) e servidores web. É usado para requisitar e servir páginas, recursos e APIs (REST/GraphQL), operando sobre TCP/TLS e utilizando métodos como GET, POST, PUT e DELETE. Aplique HTTP sempre que precisar construir ou consumir serviços web, interfaces web ou APIs públicas/privadas.
+
+- **FTP — File Transfer Protocol**: protocolo para transferência de arquivos entre cliente e servidor, com comandos para navegar, enviar e baixar arquivos. É útil para manutenção de servidores, deploys simples ou transferência direta de arquivos grandes, mas hoje em dia costuma ser substituído por SFTP/FTPS (segurança) ou por ferramentas de deploy/backup mais modernas. Use FTP apenas quando compatibilidade legada ou um servidor FTP for requerido.
+
+- **SMTP — Simple Mail Transfer Protocol**: protocolo padrão para envio e roteamento de e‑mails entre servidores. Aplicações e servidores usam SMTP para enviar mensagens; a recepção e sincronização nos clientes normalmente usam IMAP/POP3. Use SMTP sempre que sua aplicação precisar enviar notificações por e‑mail, confirmações ou relatórios; combine com serviços de entrega (SES, SendGrid, etc.) para confiabilidade e escala.
+
+- **TCP — Transmission Control Protocol**: protocolo de transporte orientado à conexão que garante entrega confiável, ordenada e sem duplicação de pacotes entre duas pontas (hosts). Opera abaixo de protocolos de aplicação (HTTP, SMTP etc.) e fornece controle de fluxo e retransmissão em caso de perda. Use TCP quando a aplicação precisar de comunicação confiável e sequencial (web, transferência de arquivos confiável, APIs via HTTP); para casos que exigem baixa latência e aceitam perda de pacotes, considere UDP.
+
+- **IP — Internet Protocol**: protocolo de camada de rede responsável por endereçamento e roteamento de pacotes entre dispositivos na rede. IP define formatos de endereço (IPv4/IPv6) e fragmentação de pacotes, mas não garante entrega — isso é responsabilidade de protocolos de camada superior como TCP. Aplique IP sempre que dispositivos precisarem comunicar-se através de redes distintas; combine com protocolos de transporte (TCP/UDP) conforme requisitos de confiabilidade e latência.
+
+- **UDP — User Datagram Protocol**: protocolo de transporte sem conexão que envia datagramas sem garantia de entrega, ordenação ou prevenção de duplicatas. É leve e de baixa latência, adequado para streaming de áudio/vídeo, jogos em tempo real e DNS, onde perda ocasional é aceitável. Use UDP quando precisar de desempenho e tolerância a perda; use mecanismos adicionais de aplicação se precisar de confiabilidade.
+
+## File-Based Routing
+
+**File-Based Routing** é um padrão onde a estrutura de arquivos do projeto define automaticamente as rotas da aplicação: cada arquivo ou diretório dentro de uma pasta de rotas (ex.: pages/, src/routes/) mapeia para uma URL. Frameworks como Next.js, Nuxt e SvelteKit adotam esse modelo, oferecendo rotas dinâmicas (ex.: [id].js) e aninhadas por convenção. 
+- **Vantagens**: menos configuração, criação rápida de rotas, melhor previsibilidade e manutenção;
+- **Desvantagem**: pode ser limitante quando é necessária lógica complexa de roteamento dinâmica. Use File-Based Routing quando quiser produtividade e convenções claras, opte por roteamento programático se precisar gerar rotas dinamicamente em tempo de execução.
+
+## Curiosidades
+
