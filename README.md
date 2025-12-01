@@ -79,3 +79,11 @@ Tabela com comandos úteis, dividida em sincronização remota e operações loc
 
 ## Curiosidades
 
+- **Princípio do Menor Privilégio (Principle of Least Privilege — PoLP)**: consiste em conceder a usuários, processos e serviços apenas as permissões estritamente necessárias para executar suas tarefas, nada a mais. Aplicado corretamente reduz a superfície de ataque, limita o impacto de credenciais comprometidas ou erros humanos, facilita auditoria e conformidade, e melhora a segurança em camadas (sistemas operacionais, bases de dados, APIs, serviços em nuvem, containers). Implemente PoLP usando roles e políticas granulares (RBAC/ABAC), credenciais efêmeras, segregação de ambientes e revisões periódicas de permissões; aplique-o sempre que projetar acessos, arquiteturas de infraestrutura e pipelines de deploy.
+
+Frase: One man's trash is another man's treasure,
+Olixo de uns é o tesouso de outros.
+
+- **EditorConfig**
+O EditorConfig é um Configurador de Editor e por ele a gente vai definir regras fundamentais de como o seu Editor deve se comportar como, por exemplo, qual a largura da indentação do código, se será uma indentação mais curta ou mais comprida e se nela deve usar o caractere de espaço ou tab. Mas importante destacar que essas regras irão acontecer antes de você salvar um arquivo...
+
