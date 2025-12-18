@@ -114,3 +114,7 @@ Olixo de uns é o tesouso de outros.
 ```
 
 ## Testes Automatizados
+
+### Test Runner
+
+`npm install --save-dev jest@29.6.2`
