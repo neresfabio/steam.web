@@ -118,3 +118,17 @@ Olixo de uns é o tesouso de outros.
 ### Test Runner
 
 `npm install --save-dev jest@29.6.2`
+
+---
+
+Corrigir mensagem do commit, isso se você for o unico usando a bransh.
+
+> Caso 1 — Já fiz o commit e já dei push, mas só você usa essa branch
+
+Dá pra corrigir, mas precisa forçar o push:
+
+```bash
+git commit --amend -m "mensagem correta do commit"
+git push --force
+``
+```
