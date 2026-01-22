@@ -1,6 +1,8 @@
+name: infra
 services:
   database:
     image: "postgres:16.0-alpine3.18"
+    container_name: postgres-curso-dev
     env_file:
       - ../.env.development
     ports:
