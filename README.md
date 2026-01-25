@@ -1,134 +1,517 @@
-# Curso Dev
+# 🌊 steam.web
 
-## Visão
+> Aqui as coisas fluem!
 
-Registro pessoal da rotina de aprendizagem em desenvolvimento. Use este documento para planejar, executar e revisar suas atividades diárias e semanais.
-
-## Objetivos
-
-- Curto prazo:
-  - Criar um repositório no GitHub com README. ✅
-  - Clonar o repositório remoto localmente. ✅
-  - Fazer a primeira alteração no README e subir para o remoto. ✅
-- Médio/Longo prazo:
-  - Aprender os comandos Git essenciais.
-  - Praticar fluxo de branches, merge e rebase.
-  - Construir pequenos projetos para consolidar conceitos.
-
-## Comandos Git
-
-Tabela com comandos úteis, dividida em sincronização remota e operações locais.
-
-| Sincronização remota                                                                                                                                                                                                                                                                                                                                                      | Local                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `git clone <repo>` — clonar repositório remoto<br>`git remote add origin <url>` — adicionar remoto<br>`git fetch` — buscar atualizações (não altera o working tree)<br>`git pull` — buscar e mesclar do remoto (`fetch` + `merge` ou `rebase` dependendo da configuração)<br>`git push` — enviar commits ao remoto<br>`git push -u origin <branch>` — configurar upstream | `git status` — mostrar estado do repositório<br>`git add <file>` — preparar alterações para commit<br>`git commit -m "msg"` — criar commit<br>`git branch` — listar/gerir branches<br>`git checkout <branch>` / `git switch <branch>` — mudar de branch<br>`git merge <branch>` — mesclar branch no atual<br>`git rebase <branch>` — reaplicar commits sobre outro branch<br>`git reset --soft --hard` — redefinir HEAD (cuidado)<br>`git stash` — guardar alterações temporariamente<br>`git log` — visualizar histórico de commits<br>`git diff` — ver diferenças entre estados |
-
-## Arvore de arquivos
-
-### /.nvmrc
-
-**Explicação curta**:
-
-- **Função**: .nvmrc contém a versão do Node a ser usada pelo projeto. Ferramentas como nvm (Node Version Manager) leem esse arquivo para trocar automaticamente a versão do Node.
-- **Como usar**:
-  - `nvm install` instala a versão indicada (se não existir)
-  - `nvm use` ativa a versão indicada por .nvmrc
-  - `nvm exec npm run start` executa com a versão do .nvmrc
-
-### /package.json
-
-**Para que serve o package.json**
-
-- Função geral: é o manifesto do projeto Node.js / JavaScript. Contém metadados e configurações que descrevem o projeto e permitem gerenciar dependências, scripts e comportamentos da aplicação.
-- Campos comuns:
-  - name, version, description — informações básicas do projeto.
-  - main — arquivo de entrada (ex.: "index.js").
-  - scripts — comandos customizados que podem ser executados com `npm run <nome>` (ex.: "start", "test", "build").
-  - dependencies — dependências necessárias em runtime.
-  - devDependencies — dependências usadas apenas em desenvolvimento (tests, bundlers).
-  - engines — versão(s) do Node compatíveis.
-  - repository, license, author, keywords — metadados para publicação/identificação.
-- Uso rápido:
-  - `npm init` — cria um package.json interativo.
-  - `npm install` — instala dependências listadas.
-  - `npm install <pkg>` — adiciona uma dependência e atualiza package.json.
-  - `npm install <pkg> --save-dev` — adiciona a devDependency.
-  - `npm run <script>` — executa scripts definidos.
-- Observações:
-  - Mantenha scripts claros e atômicos (start, test, build).
-  - O arquivo package-lock.json (ou yarn.lock) trava versões instaladas para reprodutibilidade.
-  - Para projetos que usam nvm, combine package.json (engines) com .nvmrc para consistência de ambiente.
-
-## Protocolos web
-
-- **HTTP — Hypertext Transfer Protocol**: protocolo usado para troca de informação entre clientes (ex.: navegadores) e servidores web. É usado para requisitar e servir páginas, recursos e APIs (REST/GraphQL), operando sobre TCP/TLS e utilizando métodos como GET, POST, PUT e DELETE. Aplique HTTP sempre que precisar construir ou consumir serviços web, interfaces web ou APIs públicas/privadas.
-
-- **FTP — File Transfer Protocol**: protocolo para transferência de arquivos entre cliente e servidor, com comandos para navegar, enviar e baixar arquivos. É útil para manutenção de servidores, deploys simples ou transferência direta de arquivos grandes, mas hoje em dia costuma ser substituído por SFTP/FTPS (segurança) ou por ferramentas de deploy/backup mais modernas. Use FTP apenas quando compatibilidade legada ou um servidor FTP for requerido.
-
-- **SMTP — Simple Mail Transfer Protocol**: protocolo padrão para envio e roteamento de e‑mails entre servidores. Aplicações e servidores usam SMTP para enviar mensagens; a recepção e sincronização nos clientes normalmente usam IMAP/POP3. Use SMTP sempre que sua aplicação precisar enviar notificações por e‑mail, confirmações ou relatórios; combine com serviços de entrega (SES, SendGrid, etc.) para confiabilidade e escala.
-
-- **TCP — Transmission Control Protocol**: protocolo de transporte orientado à conexão que garante entrega confiável, ordenada e sem duplicação de pacotes entre duas pontas (hosts). Opera abaixo de protocolos de aplicação (HTTP, SMTP etc.) e fornece controle de fluxo e retransmissão em caso de perda. Use TCP quando a aplicação precisar de comunicação confiável e sequencial (web, transferência de arquivos confiável, APIs via HTTP); para casos que exigem baixa latência e aceitam perda de pacotes, considere UDP.
-
-- **IP — Internet Protocol**: protocolo de camada de rede responsável por endereçamento e roteamento de pacotes entre dispositivos na rede. IP define formatos de endereço (IPv4/IPv6) e fragmentação de pacotes, mas não garante entrega — isso é responsabilidade de protocolos de camada superior como TCP. Aplique IP sempre que dispositivos precisarem comunicar-se através de redes distintas; combine com protocolos de transporte (TCP/UDP) conforme requisitos de confiabilidade e latência.
-
-- **UDP — User Datagram Protocol**: protocolo de transporte sem conexão que envia datagramas sem garantia de entrega, ordenação ou prevenção de duplicatas. É leve e de baixa latência, adequado para streaming de áudio/vídeo, jogos em tempo real e DNS, onde perda ocasional é aceitável. Use UDP quando precisar de desempenho e tolerância a perda; use mecanismos adicionais de aplicação se precisar de confiabilidade.
-
-## File-Based Routing
-
-**File-Based Routing** é um padrão onde a estrutura de arquivos do projeto define automaticamente as rotas da aplicação: cada arquivo ou diretório dentro de uma pasta de rotas (ex.: pages/, src/routes/) mapeia para uma URL. Frameworks como Next.js, Nuxt e SvelteKit adotam esse modelo, oferecendo rotas dinâmicas (ex.: [id].js) e aninhadas por convenção.
-
-- **Vantagens**: menos configuração, criação rápida de rotas, melhor previsibilidade e manutenção;
-- **Desvantagem**: pode ser limitante quando é necessária lógica complexa de roteamento dinâmica. Use File-Based Routing quando quiser produtividade e convenções claras, opte por roteamento programático se precisar gerar rotas dinamicamente em tempo de execução.
-
-## Curiosidades
-
-- **Princípio do Menor Privilégio (Principle of Least Privilege — PoLP)**: consiste em conceder a usuários, processos e serviços apenas as permissões estritamente necessárias para executar suas tarefas, nada a mais. Aplicado corretamente reduz a superfície de ataque, limita o impacto de credenciais comprometidas ou erros humanos, facilita auditoria e conformidade, e melhora a segurança em camadas (sistemas operacionais, bases de dados, APIs, serviços em nuvem, containers). Implemente PoLP usando roles e políticas granulares (RBAC/ABAC), credenciais efêmeras, segregação de ambientes e revisões periódicas de permissões; aplique-o sempre que projetar acessos, arquiteturas de infraestrutura e pipelines de deploy.
-
-Frase: One man's trash is another man's treasure,
-Olixo de uns é o tesouso de outros.
-
-- **EditorConfig**
-  O EditorConfig é um Configurador de Editor e por ele a gente vai definir regras fundamentais de como o seu Editor deve se comportar como, por exemplo, qual a largura da indentação do código, se será uma indentação mais curta ou mais comprida e se nela deve usar o caractere de espaço ou tab. Mas importante destacar que essas regras irão acontecer antes de você salvar um arquivo...
-
-## Proposta de Arquitetura e Pastas
-
-1. Arquitetura: **MVC (Model View Controller)**
-
-2. Estrutura de Pastas
-
-```
-📦root/
-├──📂pages/
-│   └──📄index.js
-├──📂models/
-│   ├──📄users.js
-│   ├──📄content.js
-│   └──📄password.js
-├──📂infra/
-│   ├──📄database.js
-│   ├──📂migrations/
-│   └──📂provisioning/
-│       ├──📂staging/
-│       └──📂production/
-└──📂tests/
-```
-
-## Testes Automatizados
-
-### Test Runner
-
-`npm install --save-dev jest@29.6.2`
+Um espaço dedicado à construção de experiências web modernas utilizando **JavaScript** e **CSS**. Este projeto documenta a jornada de aprendizagem em desenvolvimento, com foco em boas práticas, arquitetura limpa e colaboração eficiente.
 
 ---
 
-Corrigir mensagem do commit, isso se você for o unico usando a bransh.
+## 📚 Índice
 
-> Caso 1 — Já fiz o commit e já dei push, mas só você usa essa branch
+- [Visão Geral](#-visão-geral)
+- [Arquitetura](#-arquitetura)
+- [Quick Start](#-quick-start)
+- [Instalação e Configuração](#-instalação-e-configuração)
+- [Comandos Úteis](#-comandos-úteis)
+- [Estrutura de Pastas](#-estrutura-de-pastas)
+- [Tecnologias](#-tecnologias)
+- [Testes](#-testes)
+- [Git Workflow](#-git-workflow)
+- [Conceitos Técnicos](#-conceitos-técnicos)
+- [Contribuindo](#-contribuindo)
 
-Dá pra corrigir, mas precisa forçar o push:
+---
+
+## 🎯 Visão Geral
+
+**steam.web** é um projeto que serve como base para aprendizagem e consolidação de conhecimentos em desenvolvimento web. Aqui você encontrará:
+
+- ✅ Exemplos práticos de arquitetura MVC
+- ✅ Padrões de organização de código
+- ✅ Documentação clara para técnicos e não-técnicos
+- ✅ Testes automatizados
+- ✅ Fluxo Git profissional
+
+**Resumo técnico:**
+- **Linguagem**: JavaScript (63,9%) e CSS (36,1%)
+- **Padrão**: MVC (Model-View-Controller)
+- **Banco de Dados**: PostgreSQL
+- **Runtime**: Node.js (versão em .nvmrc)
+
+---
+
+## 🏗️ Arquitetura
+
+O projeto segue o padrão **MVC** para máxima clareza e escalabilidade:
+
+```
+┌─────────────┐
+│   MODEL     │  Dados e regras de negócio
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│ CONTROLLER  │  Lógica que conecta Model ↔ View
+└──────┬──────┘
+       │
+┌──────▼──────┐
+│    VIEW     │  Interface e apresentação (pages/)
+└─────────────┘
+```
+
+### Camadas do Projeto
+
+| Camada | Responsabilidade | Localização |
+|--------|------------------|-------------|
+| **Model** | Estrutura de dados, validações, regras de negócio | `src/models/` |
+| **View** | Componentes, páginas, interface visual | `pages/` |
+| **Controller** | Lógica de negócio, orquestração | `src/controllers/` |
+| **Infra** | Banco de dados, migrations, provisionamento | `infra/` |
+| **Assets** | CSS, imagens, fonts estáticas | `pages/assets/` |
+
+---
+
+## 🚀 Quick Start
+
+Comece em 3 passos:
 
 ```bash
-git commit --amend -m "mensagem correta do commit"
-git push --force
-``
+# 1. Configure a versão correta do Node
+nvm use
+
+# 2. Instale as dependências
+npm install
+
+# 3. Rode a aplicação
+npm run start
 ```
+
+Sua aplicação estará acessível em `http://localhost:3000`.
+
+---
+
+## 📦 Instalação e Configuração
+
+### Pré-requisitos
+
+- **Node.js**: versão especificada em `.nvmrc` (use [nvm](https://github.com/nvm-sh/nvm))
+- **PostgreSQL**: versão 16+ (se usar banco de dados)
+- **npm**: gerenciador de pacotes (vem com Node)
+
+### Instalação Completa
+
+```bash
+# Clone o repositório
+git clone https://github.com/neresfabio/steam.web.git
+cd steam.web
+
+# Configure o Node com NVM
+nvm install  # Instala a versão do .nvmrc
+nvm use      # Ativa a versão
+
+# Instale dependências
+npm install
+
+# Configure variáveis de ambiente
+cp .env.example .env.development
+# Edite .env.development com suas credenciais
+```
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env.development` com:
+
+```env
+NODE_ENV=development
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=seu_usuario
+POSTGRES_PASSWORD=sua_senha
+POSTGRES_DB=steam_db
+```
+
+---
+
+## 🔨 Comandos Úteis
+
+### Desenvolvimento
+
+| Comando | Descrição |
+|---------|-----------|
+| `npm run start` | Inicia a aplicação em modo desenvolvimento |
+| `npm run dev` | Alias para `start` (se configurado) |
+| `npm test` | Executa todos os testes |
+| `npm test -- --watch` | Roda testes em modo observação |
+| `npm run build` | Compila/constrói para produção |
+
+### Git - Sincronização
+
+| Comando | Descrição |
+|---------|-----------|
+| `git clone <repo>` | Clona o repositório remoto |
+| `git fetch` | Busca atualizações sem alterar código local |
+| `git pull` | Busca e integra atualizações remotas |
+| `git status` | Mostra status das mudanças |
+| `git add .` | Prepara arquivos para commit |
+| `git commit -m "mensagem"` | Cria um commit com histórico |
+| `git push` | Envia commits para o repositório remoto |
+
+### Git - Branches e Merges
+
+| Comando | Descrição |
+|---------|-----------|
+| `git branch` | Lista todas as branches |
+| `git branch <nome>` | Cria uma nova branch |
+| `git checkout <branch>` | Muda para outra branch |
+| `git checkout -b <branch>` | Cria e muda para uma nova branch |
+| `git merge <branch>` | Integra outra branch na atual |
+| `git rebase <branch>` | Reaplica commits (reescreve histórico) |
+
+### NPM - Dependências
+
+| Comando | Descrição |
+|---------|-----------|
+| `npm install` | Instala todas as dependências |
+| `npm install <pkg>` | Instala e adiciona uma dependência |
+| `npm install <pkg> --save-dev` | Instala como devDependency (desenvolvimento) |
+| `npm update` | Atualiza todas as dependências |
+| `npm list` | Lista dependências instaladas |
+
+---
+
+## 📁 Estrutura de Pastas
+
+```
+📦 steam.web/
+ ├── 📂 src/                    # Código-fonte principal
+ │   ├── 📂 models/             # Modelos de dados e lógica
+ │   │   ├── users.js
+ │   │   ├── content.js
+ │   │   └── password.js
+ │   ├── 📂 controllers/        # Lógica de negócio
+ │   │   └── statusController.js
+ │   └── 📂 assets/             # Recursos estáticos
+ │       └── styles.css
+ ├── 📂 pages/                  # Páginas e rotas (Next.js style)
+ │   ├── 📂 api/                # Endpoints da API
+ │   │   └── 📂 v1/
+ │   │       └── 📂 status/
+ │   │           └── index.js
+ │   ├── index.js               # Página inicial
+ │   └── index.module.css       # Estilos da home
+ ├── 📂 infra/                  # Infraestrutura
+ │   ├── 📂 migrations/         # Migrações do banco
+ │   ├── 📂 provisioning/       # Scripts de setup
+ │   │   ├── 📂 staging/
+ │   │   └── 📂 production/
+ │   └── database.js            # Conexão PostgreSQL
+ ├── 📂 tests/                  # Testes automatizados
+ │   ├── 📂 integration/        # Testes de integração
+ │   │   └── api/
+ │   │       └── v1/
+ │   │           └── status/
+ │   │               └── get.test.js
+ │   └── 📂 unit/               # Testes unitários
+ ├── 📄 .editorconfig           # Padronização do editor
+ ├── 📄 .env.development        # Variáveis (desenvolvimento)
+ ├── 📄 .gitignore              # Arquivos ignorados pelo Git
+ ├── 📄 .nvmrc                  # Versão do Node.js
+ ├── 📄 .prettierignore         # Arquivos ignorados por formatação
+ ├── 📄 package.json            # Dependências e scripts
+ ├── 📄 package-lock.json       # Lock das versões
+ ├── 📄 jsconfig.json           # Configuração do JavaScript
+ └── 📄 README.md               # Esta documentação
+```
+
+### Explicação dos Arquivos-Chave
+
+#### `.nvmrc`
+Especifica a versão do Node.js para o projeto.
+
+```bash
+# Usar com nvm:
+nvm install  # Instala a versão do arquivo
+nvm use      # Ativa a versão
+```
+
+#### `package.json`
+Manifesto do projeto. Define dependências, scripts e metadados.
+
+```json
+{
+  "name": "steam.web",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "next dev",
+    "test": "jest"
+  },
+  "dependencies": {...},
+  "devDependencies": {...}
+}
+```
+
+**Scripts comuns:**
+- `npm run start` — Inicia aplicação
+- `npm run test` — Executa testes
+- `npm run build` — Compila para produção
+
+#### `.editorconfig`
+Garante consistência de indentação e formatação entre diferentes editores.
+
+#### `jsconfig.json`
+Configurações do JavaScript (paths, alias, etc.)
+
+#### `infra/database.js`
+Módulo de conexão com PostgreSQL. Exemplo:
+
+```javascript
+import { Client } from "pg";
+
+async function query(queryObject) {
+  const client = new Client({
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    user: process.env.POSTGRES_USER,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+  });
+  
+  try {
+    await client.connect();
+    const result = await client.query(queryObject);
+    return result;
+  } finally {
+    await client.end();
+  }
+}
+
+export default { query };
+```
+
+---
+
+## 💻 Tecnologias
+
+| Tecnologia | Uso | Documentação |
+|-----------|-----|--------------|
+| **JavaScript** | Linguagem principal (63,9%) | [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript) |
+| **CSS** | Estilização (36,1%) | [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS) |
+| **Next.js** | Framework web (provável) | [Next.js Docs](https://nextjs.org) |
+| **PostgreSQL** | Banco de dados relacional | [PostgreSQL](https://www.postgresql.org) |
+| **Jest** | Framework de testes | [Jest](https://jestjs.io) |
+| **Node.js** | Runtime JavaScript | [Node.js](https://nodejs.org) |
+
+---
+
+## 🧪 Testes
+
+### Configuração
+
+```bash
+npm install --save-dev jest@29.6.2
+```
+
+### Executar Testes
+
+```bash
+# Rodar todos os testes
+npm run test
+
+# Modo watch (reexecuta ao salvar)
+npm run test -- --watch
+
+# Coverage (cobertura de código)
+npm run test -- --coverage
+```
+
+### Exemplo de Teste
+
+```javascript
+// tests/integration/api/v1/status/get.test.js
+test("GET /api/v1/status retorna 200", async () => {
+  const response = await fetch("http://localhost:3000/api/v1/status");
+  
+  expect(response.status).toBe(200);
+  
+  const body = await response.json();
+  expect(body.dependencies.database.version).toBe("16.0");
+});
+```
+
+---
+
+## 🌿 Git Workflow
+
+### Fluxo Padrão
+
+1. **Criar branch para feature:**
+   ```bash
+   git checkout -b feature/nova-funcionalidade
+   ```
+
+2. **Fazer mudanças e testar:**
+   ```bash
+   git add .
+   git commit -m "feat: adiciona nova funcionalidade"
+   ```
+
+3. **Enviar para remoto:**
+   ```bash
+   git push origin feature/nova-funcionalidade
+   ```
+
+4. **Criar Pull Request no GitHub**
+
+5. **Merge na main**
+
+### Corrigir Commits
+
+Se fez commit errado **e apenas você usa a branch**:
+
+```bash
+# Corrigir a mensagem
+git commit --amend -m "mensagem correta"
+
+# Reenviar (com força, pois reescreve histórico)
+git push --force
+```
+
+⚠️ **Cuidado**: Nunca faça `git push --force` em branches compartilhadas!
+
+---
+
+## 📡 Conceitos Técnicos
+
+### Protocolos Web
+
+| Protocolo | Função | Uso |
+|-----------|--------|-----|
+| **HTTP** | Requisição/resposta entre cliente-servidor | APIs, páginas web |
+| **HTTPS** | HTTP com criptografia TLS/SSL | Comunicação segura |
+| **FTP** | Transferência de arquivos | Deploy, backups (obsoleto) |
+| **SMTP** | Envio de e-mails | Notificações |
+| **TCP** | Entrega confiável de dados | Internet, streaming |
+| **UDP** | Entrega rápida (sem garantia) | Games, VoIP, streaming |
+| **IP** | Endereçamento de rede | Roteamento de pacotes |
+
+### File-Based Routing
+
+Padrão onde a **estrutura de pastas** define as rotas automaticamente.
+
+**Vantagens:**
+- Menos configuração
+- Rotas intuitivas
+- Fácil manutenção
+
+**Como funciona:**
+```
+pages/
+ ├── index.js           → /
+ ├── about.js           → /about
+ └── api/
+     └── v1/
+         └── status.js  → /api/v1/status
+```
+
+### Princípio do Menor Privilégio (PoLP)
+
+Conceda a usuários e serviços **apenas** as permissões necessárias.
+
+**Benefícios:**
+- Reduz superfície de ataque
+- Limita danos de credenciais comprometidas
+- Facilita auditoria
+
+**Como aplicar:**
+- Use roles e políticas granulares (RBAC)
+- Implemente credenciais efêmeras
+- Revise permissões regularmente
+- Segregue ambientes (dev, staging, prod)
+
+### EditorConfig
+
+Padroniza configurações de editor entre times.
+
+Exemplo `.editorconfig`:
+```ini
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{js,jsx,ts,tsx}]
+indent_style = space
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+```
+
+---
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Siga os passos:
+
+1. **Fork** o repositório
+2. **Crie uma branch** para sua feature (`git checkout -b feature/sua-feature`)
+3. **Commit** suas mudanças com mensagens claras (`git commit -m "feat: descrição"`)
+4. **Push** para seu fork (`git push origin feature/sua-feature`)
+5. **Abra um Pull Request**
+
+### Padrão de Commits
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: adiciona nova funcionalidade
+fix: corrige bug em X
+docs: atualiza documentação
+test: adiciona testes para X
+refactor: reorganiza código em X
+```
+
+### Checklist antes de Enviar
+
+- ✅ Código testado
+- ✅ Testes passando (`npm test`)
+- ✅ Sem console.log deixado
+- ✅ README atualizado (se necessário)
+- ✅ Commit com mensagem clara
+
+---
+
+## 📚 Curiosidades & Dicas
+
+💡 **"One man's trash is another man's treasure."**  
+*"O lixo de uns é o tesouro de outros."*
+
+- Use `.gitignore` para não versionar arquivos sensíveis (`.env`, `node_modules/`)
+- Mantenha `package-lock.json` atualizado para reprodutibilidade
+- Combine `.nvmrc` com `package.json` (engines) para máxima compatibilidade
+- EditorConfig + Prettier + ESLint = equipe sincronizada 🎯
+
+---
+
+## 📞 Suporte e Contato
+
+- 📧 **Issues**: Use GitHub Issues para bugs ou sugestões
+- 💬 **Discussões**: Abra discussões para perguntas
+- 🔗 **Social**: 
+  - [Instagram](https://www.instagram.com/oneres_stm)
+  - [LinkedIn](https://www.linkedin.com/in/fabioneresdejesus)
+  - [YouTube](https://www.youtube.com/@mocorongotech)
+
+---
+
+## 📄 Licença
+
+Este projeto é fornecido como é, para fins educacionais.  
+Especifique uma licença oficial se desejar publicar (MIT, Apache 2.0, etc.).
+
+---
+
+**Desenvolvido com ❤️ por Fábio Neres**  
+Santarém - PA | EngVerse
